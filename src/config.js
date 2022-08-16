@@ -1,4 +1,4 @@
-import {config} from "doitenv";
+import {config} from "dotenv";
 
 config();
 
