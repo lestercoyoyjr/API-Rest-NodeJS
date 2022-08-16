@@ -16,11 +16,17 @@ const getLanguages = async (req,res) => {
 
 const addLanguage =  async (req,res) => {
     try{
-        console.log(req.body);
+        const {name,programmers} = req.body;
+
+        if (name==undefined || programmers==undefined){
+            res.status(400).json({message:"Bad Request! Please, fill all of the fields."});
+        }
+
+        // query
+        const language = {name, programmers};
         const connection = await getConnection();
-        res.json("addLanguage");
-        //query
-        
+        const result = await connection.query("INSERT INTO language SET ?", language);
+        res.json("Language Added");
     } catch (error){
         res.status(500);
         res.send(error.message);
