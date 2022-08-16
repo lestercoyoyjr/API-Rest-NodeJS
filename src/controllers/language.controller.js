@@ -1,14 +1,33 @@
 import {getConnection} from "./../database/database";
 
 const getLanguages = async (req,res) => {
-    const connection= await getConnection();
+    try{
+        const connection= await getConnection();
     
-    //query
-    const result = await connection.query("SELECT id, name, programmers FROM language");
-    console.log(result);
-    res.json(result);
+        //query
+        const result = await connection.query("SELECT id, name, programmers FROM language");
+        console.log(result);
+        res.json(result);
+    } catch (error){
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
+const addLanguage =  async (req,res) => {
+    try{
+        console.log(req.body);
+        const connection = await getConnection();
+        res.json("addLanguage");
+        //query
+        
+    } catch (error){
+        res.status(500);
+        res.send(error.message);
+    }
 };
 
 export const methods = {
-    getLanguages
+    getLanguages,
+    addLanguage
 };
