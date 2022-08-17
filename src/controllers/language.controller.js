@@ -50,8 +50,25 @@ const addLanguage =  async (req,res) => {
     }
 };
 
+const deleteLanguage = async (req,res) => {
+    try{
+        console.log(req.params);
+        const {id} = req.params;
+        const connection= await getConnection();
+    
+        //query
+        const result = await connection.query("DELETE FROM language WHERE id = ?", id);
+        console.log(result);
+        res.json(result);
+    } catch (error){
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
 export const methods = {
     getLanguages,
     addLanguage,
-    getLanguage
+    getLanguage,
+    deleteLanguage
 };
