@@ -14,6 +14,23 @@ const getLanguages = async (req,res) => {
     }
 };
 
+// only one language
+const getLanguage = async (req,res) => {
+    try{
+        console.log(req.params);
+        const {id} = req.params;
+        const connection= await getConnection();
+    
+        //query
+        const result = await connection.query("SELECT id, name, programmers FROM language WHERE id = ?", id);
+        console.log(result);
+        res.json(result);
+    } catch (error){
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
 const addLanguage =  async (req,res) => {
     try{
         const {name,programmers} = req.body;
@@ -35,5 +52,6 @@ const addLanguage =  async (req,res) => {
 
 export const methods = {
     getLanguages,
-    addLanguage
+    addLanguage,
+    getLanguage
 };
